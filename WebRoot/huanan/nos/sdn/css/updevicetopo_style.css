@@ -1,0 +1,9 @@
+#header { width:100%;}
+#header .title { width:300px;height:36px;background:url(images/title_bg.png) no-repeat left bottom;}
+#header .title span { margin:0 32px;font:normal normal bold 16px/40px Î¢ÈíÑÅºÚ,Arial,Helvetica,sans-serif;color:#CCFFCC;}
+#mainer { position:relative;width:100%;padding:0;border-radius:0 5px 5px 5px;background:url(images/mainer_bg.png);}
+#topoHolder { width:1140px;height:640px;margin:0px auto;}
+#circuitFluxDiv { width:760px;height:200px;}
+#fluxTimeTypeDiv input[type='radio'] { vertical-align:middle;margin-left:10px;cursor:pointer;}
+#fluxTimeTypeDiv label { cursor:pointer;vertical-align:middle;}
+#circuitDelayAndDropDiv { width:760px;height:200px;margin:10px 0 0 0;}

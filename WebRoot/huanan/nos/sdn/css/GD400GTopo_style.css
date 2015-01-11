@@ -1,0 +1,28 @@
+#header { width:100%;}
+#header .title { width:300px;height:36px;background:url(images/title_bg.png) no-repeat left bottom;}
+#header .title span { margin:0 32px;font:normal normal bold 16px/40px Î¢ÈíÑÅºÚ,Arial,Helvetica,sans-serif;color:#CCFFCC;}
+#mainer { position:relative;width:100%;padding:20px 0 0 0;border-radius:0 5px 5px 5px;background:url(images/mainer_bg.png);}
+#ptInfo { width:1140px;height:50px;margin:0 auto;background:url(images/wgray.png) repeat;color:#FFF;border-radius:3px;}
+#ptInfo li { float:left;width:15%;height:50px;text-align:center;line-height:50px;border-radius:3px;cursor:default;}
+#ptInfo li.widerLi { width:20%;}
+#ptInfo li:hover { background:#0099CC;}
+#topoHolder { width:1140px;height:500px;margin:10px auto;font:normal normal normal 12px Î¢ÈíÑÅºÚ,Arial, Helvetica, sans-serif;}
+
+
+
+.panel-header { background:none;border:none;filter:none;}
+      .panel-title { color:#FFFF00;}
+      .panel-body { background:none;border-top-width:1px;}
+      .datagrid-header { background:none;filter:none;}
+      .datagrid-header-inner { background:none;}
+      .datagrid-header .datagrid-header-row td{ background:url(css/images/green.png) repeat; color:#FCFCFC;}
+      .datagrid-htable { color:#FCFCFC;}
+      .datagrid-header td.datagrid-header-over { background:url(css/images/green.png) repeat;color:#FCFCFC;}
+      .datagrid-view2 { background:url(css/images/wgray.png) repeat;}
+      .datagrid-row-over { background:none;color:#FCFCFC;}
+      .datagrid-row-selected{ background:none;color:#FCFCFC;}
+      .datagrid-row { color:#FCFCFC;}
+      .window { background-color:transparent;background:url(css/images/window_bg.png) repeat;filter:none;}
+      .window .window-body { border-top-width:1px;}
+      .datagrid-pager { background:transparent;}
+      .panel-body { color:#FFF;}

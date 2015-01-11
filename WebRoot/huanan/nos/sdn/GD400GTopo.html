@@ -1,0 +1,79 @@
+<!-- customer:中国电信广州研究院 --> 
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>广东电信城域网省内流量调度</title>
+	<meta http-equiv="x-ua-compatible" content="ie=Edge,ie=10,ie=9,ie=8" />
+    <meta http-equiv="content-type" content="text/html; charset=GB2312">
+    
+    <!-- jquery.core -->
+    <script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+        
+    <!-- jquery.easyui -->
+    <link rel="stylesheet" type="text/css" href="easyui/themes/black/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="easyui/themes/icon.css" />
+    <script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="easyui/easyui-lang-zh_CN.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/updevicetopo_style.css">
+    
+    <!-- raphael -->
+    <script type="text/javascript" src="js/raphael.js"></script>
+    <script type="text/javascript" src="js/raphael.popup.js"></script>
+    <script type="text/javascript" src="js/raphael.tooltip.js"></script>
+    <script type="text/javascript" src="js/raphael.line.js"></script>
+    <script type="text/javascript" src="js/raphael.spinner.js"></script>
+    
+    <!-- highcharts 表格样式 -->
+    <script type="text/javascript" src="js/highcharts.js"></script>
+    <script type="text/javascript" src="js/highcharts.grid.js"></script>
+    
+    <script type="text/javascript" src="js/UNIC-GBK.js"></script>
+    
+    <!-- css-->
+    <link rel="stylesheet" type="text/css" href="css/GD400GTopo_style.css" />
+    
+     <!--业务类:Gen生成代码-->
+    <script type="text/javascript" src="GD400GTopoDraw.js"></script>
+    <script type="text/javascript">
+    var request = {
+        queryString : function(item){
+            var svalue = $URL.decode(location.search).match(new RegExp("[\?\&]" + item + "=([^\&]*)(\&?)","i"));
+            return svalue ? svalue[1] : svalue;
+        }
+    };
+
+    var R,loading;
+
+    $(function(){
+    	//画布宽度
+    	var rWidth = $("#topoHolder").width();
+    	//画布高度
+    	var rHeight = $("#topoHolder").height();
+    	R = Raphael("topoHolder",rWidth,rHeight);
+    	
+    	//加载中
+    	loading = R.spinner(30, 60, 8, 16, "#39FB04");
+    	
+    	var para = request.queryString("paraName");
+  
+    	loadGDCityTopoInfo(para);
+    });
+
+    </script>
+  </head>
+  <body>
+    
+    <div id="header">
+      <div class="title"><span>广东电信省内流量调度</span></div>
+    </div>
+    
+    <div id="mainer">
+      <div id="topoHolder"></div>
+    </div>
+    
+    <div id="footer"></div>
+   
+  </body>
+</html>
