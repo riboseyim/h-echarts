@@ -22,7 +22,7 @@ function requireCallback (ec, defaultTheme) {
 var themeSelector = $('#theme-select');
 if (themeSelector) {
     themeSelector.html(
-        '<option selected="true" name="macarons">macarons</option>' 
+        '<option selected="true" name="macarons">macarons</option>'
         + '<option name="infographic">infographic</option>'
         + '<option name="shine">shine</option>'
         + '<option name="dark">dark</option>'
@@ -128,22 +128,50 @@ var echarts;
 var developMode = false;
 
 if (developMode) {
-    // for develop
-    require.config({
-        packages: [
-            {
-                name: 'echarts',
-                location: '../../src',
-                main: 'echarts'
-            },
-            {
-                name: 'zrender',
-                //location: 'http://ecomfe.github.io/zrender/src',
-                location: '../../../zrender/src',
-                main: 'zrender'
-            }
-        ]
-    });
+    window.esl = null;
+    window.define = null;
+    window.require = null;
+    (function () {
+        var script = document.createElement('script');
+        script.async = true;
+
+        var pathname = location.pathname;
+
+        var pathSegs = pathname.slice(pathname.indexOf('doc')).split('/');
+        var pathLevelArr = new Array(pathSegs.length - 1);
+        script.src = pathLevelArr.join('../') + 'asset/js/esl/esl.js';
+        if (script.readyState) {
+            script.onreadystatechange = fireLoad;
+        }
+        else {
+            script.onload = fireLoad;
+        }
+        (document.getElementsByTagName('head')[0] || document.body).appendChild(script);
+        
+        function fireLoad() {
+            script.onload = script.onreadystatechange = null;
+            setTimeout(loadedListener,100);
+        }
+        function loadedListener() {
+            // for develop
+            require.config({
+                packages: [
+                    {
+                        name: 'echarts',
+                        location: '../../src',
+                        main: 'echarts'
+                    },
+                    {
+                        name: 'zrender',
+                        //location: 'http://ecomfe.github.io/zrender/src',
+                        location: '../../../zrender/src',
+                        main: 'zrender'
+                    }
+                ]
+            });
+            launchExample();
+        }
+    })();
 }
 else {
     // for echarts online home page
@@ -152,26 +180,35 @@ else {
             echarts: './www/js'
         }
     });
+    launchExample();
 }
 
-// 按需加载
-require(
-    [
-        'echarts',
-        'theme/' + hash.replace('-en', ''),
-        'echarts/chart/line',
-        'echarts/chart/bar',
-        'echarts/chart/scatter',
-        'echarts/chart/k',
-        'echarts/chart/pie',
-        'echarts/chart/radar',
-        'echarts/chart/force',
-        'echarts/chart/chord',
-        'echarts/chart/gauge',
-        'echarts/chart/funnel',
-        'echarts/chart/eventRiver',
-        needMap() ? 'echarts/chart/map' : 'echarts'
-    ],
-    requireCallback
-);
+var isExampleLaunched;
+function launchExample() {
+    if (isExampleLaunched) {
+        return;
+    }
+
+    // 按需加载
+    isExampleLaunched = 1;
+    require(
+        [
+            'echarts',
+            'theme/' + hash.replace('-en', ''),
+            'echarts/chart/line',
+            'echarts/chart/bar',
+            'echarts/chart/scatter',
+            'echarts/chart/k',
+            'echarts/chart/pie',
+            'echarts/chart/radar',
+            'echarts/chart/force',
+            'echarts/chart/chord',
+            'echarts/chart/gauge',
+            'echarts/chart/funnel',
+            'echarts/chart/eventRiver',
+            needMap() ? 'echarts/chart/map' : 'echarts'
+        ],
+        requireCallback
+    );
+}
 
