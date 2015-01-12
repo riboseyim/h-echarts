@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="GBK">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GD400GMapChina">
+    <meta name="author" content="yanrui">
+    <title>省内流量调度平台</title>
+    <link href="../sdn/asset/css/bootstrap.css" rel="stylesheet">
+    <link href="../sdn/asset/css/echartsHome.css" rel="stylesheet">
+
+	<script src="../sdn/asset/jquery.min.js"></script>
+    <script src="../sdn/asset/echarts.js"></script>
+</head>
+<body>
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation" id="head">
+    	<h1 align="center">省内流量调度平台</h1>
+    </div>
+    <div class="container-fluid">
+        <div class="row-fluid example">
+        	<div id="sidebar-code" class="col-md-1">
+        	 
+            </div>
+            <div id="graphic" class="col-md-7">
+                <div id="myChartGD400GChina" class="main" style="height: 530px;"></div>
+                <div>
+                    <button type="button" class="btn btn-sm btn-success" onclick="refresh(true)">刷 新</button>
+                    <span class="text-primary">切换主题</span>
+                    <select id="theme-select"></select>
+                    <span id='wrong-message' style="color:red"></span>
+                 
+                </div>
+            </div>
+        </div>
+     </div><!--/.fluid-container-->
+    <footer id="footer"></footer>
+    
+    <script src="../sdn/asset/js/bootstrap.min.js"></script>
+    
+    <!-- 必须置于下面 -->
+    <script src="GD400GMapChina-main.js"></script>
+    <script src="GD400GMapChina-option.js"></script>
+    <script type="text/javascript">
+    
+    </script>
+    
+</body>
+</html>

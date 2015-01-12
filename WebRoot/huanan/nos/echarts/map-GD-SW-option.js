@@ -11,7 +11,6 @@ function optionGDSW(){
 		        text : '交换机纳入集中管理进度表 ',
 		        subtext: 'Data From 中盈IP综合网管',
 		        sublink:""
-		        
 		    },
 		    tooltip : {
 		        trigger: 'item',

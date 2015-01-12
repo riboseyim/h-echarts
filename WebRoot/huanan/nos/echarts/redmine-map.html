@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="GBK">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ECharts">
+    <meta name="author" content="yanrui">
+    <title>ECharts · Example</title>
+
+    <link rel="shortcut icon" href="../asset/js/ico/favicon.png">
+
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../echarts/asset/css/bootstrap.css" rel="stylesheet">
+    <link href="../echarts/asset/css/carousel.css" rel="stylesheet">
+    <link href="../echarts/asset/css/echartsHome.css" rel="stylesheet">
+
+    <script src="../echarts/asset/js/echarts.js"></script>
+    <script src="../echarts/asset/js/codemirror.js"></script>
+    <script src="../echarts/asset/js/javascript.js"></script>
+
+    <link href="../echarts/asset/css/codemirror.css" rel="stylesheet">
+    <link href="../echarts/asset/css/monokai.css" rel="stylesheet">
+
+    <style type="text/css">
+        .CodeMirror {
+            height: 550px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation" id="head"></div>
+    <div class="container-fluid">
+        <div class="row-fluid example">
+            <div id="sidebar-code" class="col-md-4">
+                <div class="well sidebar-nav">
+                    <div class="nav-header"><a href="#" onclick="autoResize()" class="glyphicon glyphicon-resize-full" id ="icon-resize" ></a>option</div>
+                    <textarea id="code" name="code">
+// 自定义扩展图表类型：mapType = Guangdong
+require('echarts/util/mapData/params').params.Guangdong = {
+    getGeoJson: function (callback) {
+        $.getJSON('../geoJson/CHM_geo.json',callback);
+    }
+}
+option = {
+    title : {
+        text : 'Redmine应用分布图（2014-11）',
+        subtext: '@author 严睿  from redmine'
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: '{b}<br/>{c} (标准工时)'
+    },
+    toolbox: {
+        show : true,
+        orient : 'vertical',
+        x: 'right',
+        y: 'center',
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    dataRange: {
+        min: 0,
+        max: 1200,
+        text:['High','Low'],
+        realtime: false,
+        calculable : true,
+        color: ['orangered','yellow','lightskyblue']
+    },
+    series : [
+        {
+            name: 'Redime',
+            type: 'map',
+            mapType: 'Guangdong', // 自定义扩展图表类型
+            itemStyle:{
+                normal:{label:{show:true}},
+                emphasis:{label:{show:true}}
+            },
+            data:[
+                {name: '安徽', value: 0},
+                {name: '北京', value: 0},
+                {name: '重庆', value: 127},
+                {name: '福建', value: 525.5},
+                {name: '甘肃', value: 373.5},
+                {name: '广东', value: 336.5},
+                {name: '广西', value: 910},
+                {name: '贵州', value: 0},
+                {name: '海南', value: 0},
+                {name: '河北', value: 0},
+                {name: '黑龙江', value: 0},
+                {name: '河南', value: 0},
+                {name: '湖北', value: 0},
+                {name: '湖南', value: 0},
+                {name: '江苏', value: 0},
+                {name: '江西', value: 0},
+                {name: '吉林', value: 0},
+                {name: '辽宁', value: 0},
+                {name: '内蒙古', value: 0},
+                {name: '宁夏', value: 49},
+                {name: '西沙', value: 0},
+                {name: '青海', value: 0},
+                {name: '山西', value: 0},
+                {name: '山东', value: 0},
+                {name: '上海', value: 0},
+                {name: '陕西', value: 137},
+                {name: '四川', value: 32},
+                {name: '天津', value: 0},
+                {name: '新疆', value: 0},
+                {name: '西藏', value: 0},
+                {name: '云南', value: 223.5},
+                {name: '浙江', value: 0}
+                
+                
+                
+            ],
+            // 自定义名称映射
+            nameMap: {
+                'Anhui':'安徽',
+                'Beijing':'北京',
+                'Chongqing':'重庆',
+                'Fujian':'福建',
+                'Gansu':'甘肃',
+                'Guangdong':'广东',
+                'Guangxi':'广西',
+                'Guizhou':'贵州',
+                'Hainan':'海南',
+                'Hebei':'河北',
+                'Heilongjiang':'黑龙江',
+                'Henan':'河南',
+                'Hubei':'湖北',
+                'Hunan':'湖南',
+                'Jiangsu':'江苏',
+                'Jiangxi':'江西',
+                'Jilin':'吉林',
+                'Liaoning':'辽宁',
+                'Nei Mongol':'内蒙古',
+                'Ningxia':'宁夏',
+                'Paracel Islands':'南海诸岛',
+                'Qinghai':'青海',
+                'Shandong':'山东',
+                'Shanxi':'山西',
+                'Shanghai':'上海',
+                'Shaanxi':'陕西',
+                'Sichuan':'四川',
+                'Tianjin':'天津',
+                'Xinjiang':'新疆',
+                'Xizang':'西藏',
+                'Yunnan':'云南',
+                'Zhejiang':'浙江'
+            },
+            // 文本位置修正
+            textFixed : {
+                'Yau Tsim Mong' : [-10, 0]
+            },
+            // 文本直接经纬度定位
+            geoCoord : {
+                'Islands' : [112.80, 21.57]
+            }
+        }
+    ]
+};
+                    </textarea>
+              </div><!--/.well -->
+            </div><!--/span-->
+            <div id="graphic" class="col-md-8">
+                <div id="main" class="main" style="height: 530px;"></div>
+                <div>
+                    <button type="button" class="btn btn-sm btn-success" onclick="refresh(true)">刷 新</button>
+                    <span class="text-primary">切换主题</span>
+                    <select id="theme-select"></select>
+                    <span id='wrong-message' style="color:red"></span>
+                </div>
+            </div><!--/span-->
+        </div><!--/row-->   
+     </div><!--/.fluid-container-->
+    <footer id="footer"></footer>
+    <script src="../echarts/asset/jquery.min.js"></script>
+    <script src="../echarts/asset/js/echartsHome.js" type="text/javascript"></script>
+    <script src="../echarts/asset/js/bootstrap.min.js"></script>
+    <script src="../echarts/asset/js/echartsExample.js"></script>
+</body>
+</html>
