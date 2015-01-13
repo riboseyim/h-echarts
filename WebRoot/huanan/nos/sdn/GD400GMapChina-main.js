@@ -102,31 +102,32 @@ function refresh(isBtnRefresh){
     }
     myChart = echarts.init(domMain, curTheme);
     window.onresize = myChart.resize;
-    //(new Function(editor.doc.getValue()))();
+    
     
     myChart.setOption(optionChinaMap());
+    
+	var ecConfig = require('echarts/config');
+	
+	myChart.on(ecConfig.EVENT.MAP_SELECTED,function (param){
+	    alert("--2--");
+	           var selected = param.selected;
+	           var str = '当前选择： ';
+	           for (var p in selected) {
+	               if (selected[p]) {
+	                   str += p + ' ';
+	               }
+	           }
+	           alert(str);
+	  });
+	
+	myChart.on(ecConfig.EVENT.CLICK,function (param){
+		window.open("GD400GTopo.html");
+	});
+    
     //myChart.setOption(optionInnerChinaMap());
     //myChart.setOption(option, true)
-    
-    alert("--1--");
-    var ecConfig = require('echarts/config');
-    alert("--2-1-");
-    myChart.on(ecConfig.EVENT.MAP_SELECTED, function (param){
-    	alert("--2--");
-        var selected = param.selected;
-        var str = '当前选择： ';
-        for (var p in selected) {
-            if (selected[p]) {
-                str += p + ' ';
-            }
-        }
-        alert(str);
-    });
-    
+   
     domMessage.innerHTML = '';
-    
-    
-    
 }
 
 function needMap() {

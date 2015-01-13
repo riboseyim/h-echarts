@@ -1,9 +1,10 @@
 
 function optionChinaMap(){
+	var ecConfig = require('echarts/config');
 	// 自定义扩展图表类型：mapType = ChinaNormal_geo
 	require('echarts/util/mapData/params').params.ChinaNormal = {
 	    getGeoJson: function (callback) {
-	        $.getJSON('../geoJson/ChinaNormal_geo.json',callback);
+	        $.getJSON('../geoJson/china_geo.json',callback);
 	    }
 	}
 	option = {
@@ -46,7 +47,7 @@ function optionChinaMap(){
 	            },
 	           data:[
 	                 {name: '安徽', value: 0},
-	                 {name: '北京', value: 0},
+	                 {name: '北京', value: 50},
 	                 {name: '重庆', value: 0},
 	                 {name: '福建', value: 10},
 	                 {name: '甘肃', value: 10},
@@ -57,9 +58,9 @@ function optionChinaMap(){
 	                 {name: '河北', value: 0},
 	                 {name: '黑龙江', value: 0},
 	                 {name: '河南', value: 0},
-	                 {name: '湖北', value: 0},
+	                 {name: '湖北', value: 30},
 	                 {name: '湖南', value: 0},
-	                 {name: '江苏', value: 0},
+	                 {name: '江苏', value: 40},
 	                 {name: '江西', value: 0},
 	                 {name: '吉林', value: 0},
 	                 {name: '辽宁', value: 0},
@@ -69,50 +70,16 @@ function optionChinaMap(){
 	                 {name: '青海', value: 0},
 	                 {name: '山西', value: 0},
 	                 {name: '山东', value: 30},
-	                 {name: '上海', value: 0},
+	                 {name: '上海', value: 50},
 	                 {name: '陕西', value: 40},
 	                 {name: '四川', value: 32},
 	                 {name: '天津', value: 0},
 	                 {name: '新疆', value: 0},
 	                 {name: '西藏', value: 0},
 	                 {name: '云南', value: 20},
-	                 {name: '浙江', value: 0}
+	                 {name: '浙江', value: 45},
+	                 {name: '台湾', value: 0}
 	                ],
-	            // 自定义名称映射
-	            nameMap: {
-	                'Anhui':'安徽',
-	                'Beijing':'北京',
-	                'Chongqing':'重庆',
-	                'Fujian':'福建',
-	                'Gansu':'甘肃',
-	                'Guangdong':'广东',
-	                'Guangxi':'广西',
-	                'Guizhou':'贵州',
-	                'Hainan':'海南',
-	                'Hebei':'河北',
-	                'Heilongjiang':'黑龙江',
-	                'Henan':'河南',
-	                'Hubei':'湖北',
-	                'Hunan':'湖南',
-	                'Jiangsu':'江苏',
-	                'Jiangxi':'江西',
-	                'Jilin':'吉林',
-	                'Liaoning':'辽宁',
-	                'Nei Mongol':'内蒙古',
-	                'Ningxia':'宁夏',
-	                'Paracel Islands':'南海诸岛',
-	                'Qinghai':'青海',
-	                'Shandong':'山东',
-	                'Shanxi':'山西',
-	                'Shanghai':'上海',
-	                'Shaanxi':'陕西',
-	                'Sichuan':'四川',
-	                'Tianjin':'天津',
-	                'Xinjiang':'新疆',
-	                'Xizang':'西藏',
-	                'Yunnan':'云南',
-	                'Zhejiang':'浙江'
-	            },
 	            // 文本位置修正
 	            textFixed : {
 	                'Yau Tsim Mong' : [-10, 0]
@@ -124,6 +91,17 @@ function optionChinaMap(){
 	        }
 	    ]
 	};
+	myChart.on(ecConfig.EVENT.MAP_SELECTED,function (param){
+    alert("--2--");
+           var selected = param.selected;
+           var str = '当前选择： ';
+           for (var p in selected) {
+               if (selected[p]) {
+                   str += p + ' ';
+               }
+           }
+           alert(str);
+    });
 	return option;
 }
 
