@@ -10,7 +10,7 @@ function optionChinaMap(){
 	option = {
 	    title : {
 	        text : 'ChinaTopo',
-	        subtext: 'author'
+	        subtext: ''
 	    },
 	    tooltip : {
 	        trigger: 'item',
@@ -41,6 +41,7 @@ function optionChinaMap(){
 	            name: 'ChinaNormal',
 	            type: 'map',
 	            mapType: 'ChinaNormal', // 自定义扩展图表类型
+	            selectedMode : 'single',
 	            itemStyle:{
 	                normal:{label:{show:true}},
 	                emphasis:{label:{show:true}}
@@ -79,29 +80,10 @@ function optionChinaMap(){
 	                 {name: '云南', value: 20},
 	                 {name: '浙江', value: 45},
 	                 {name: '台湾', value: 0}
-	                ],
-	            // 文本位置修正
-	            textFixed : {
-	                'Yau Tsim Mong' : [-10, 0]
-	            },
-	            // 文本直接经纬度定位
-	            geoCoord : {
-	                'Islands' : [112.80, 21.57]
-	            }
+	                ]
 	        }
 	    ]
 	};
-	myChart.on(ecConfig.EVENT.MAP_SELECTED,function (param){
-    alert("--2--");
-           var selected = param.selected;
-           var str = '当前选择： ';
-           for (var p in selected) {
-               if (selected[p]) {
-                   str += p + ' ';
-               }
-           }
-           alert(str);
-    });
 	return option;
 }
 
