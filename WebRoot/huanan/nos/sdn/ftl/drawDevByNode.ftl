@@ -76,8 +76,8 @@ function loadGDCityTopoInfo(para){
 			//-------------------
 			var xIDCloud=5,yIDCloud=10;
 			
-			var xPIDC = 350, yPIDC = 250;
-			var GZIDC = R.image("css/images/cloud.png",xPIDC,yPIDC,cloudWidth-xIDCloud,cloudWidth-yIDCloud);
+			var xPIDC = 380, yPIDC = 250;
+			var PIDC = R.image("css/images/cloud.png",xPIDC,yPIDC,cloudWidth-xIDCloud,cloudWidth-yIDCloud);
 			var PIDCTxt = R.text(xPIDC+(cloudWidth-xIDCloud)/2,yPIDC+(cloudWidth-yIDCloud)/2,"ʡIDC").attr({"fill":"#888","font-size":14,"font-weight":"bold"});
 
 			var xGZIDC = 550, yGZIDC = 250;
@@ -90,8 +90,9 @@ function loadGDCityTopoInfo(para){
 			
 			//----C/D
 			var xGZC = 100, yGZC = 150;
-			var nodeGZC = R.image("css/images/cloud.png",xGZC,yGZC,cloudWidth,cloudWidth);
+			var GZC = R.image("css/images/cloud.png",xGZC,yGZC,cloudWidth,cloudWidth);
 			var testGZC = R.text(xGZC+cloudWidth/2,yGZC+cloudWidth/2,"C").attr({"fill":"#888","font-size":14,"font-weight":"bold"});
+			
 			var xSZD = 100, ySZD = 350;
 			var SZD = R.image("css/images/cloud.png",xSZD,ySZD,cloudWidth,cloudWidth);
 			var SZDTxt = R.text(xSZD+cloudWidth/2,ySZD+cloudWidth/2,"D").attr({"fill":"#888","font-size":14,"font-weight":"bold"});
@@ -121,13 +122,13 @@ function loadGDCityTopoInfo(para){
 		 <#if (sugcount%2!=0)>
 		 	var ${devMap["deviceid"]}  = R.image("css/images/router_normal.png",x${devMap["node"]}-(${sugx}+routerClear),y${devMap["node"]}+(${oddcount}*${sugx}+routerClear),routerWidth,routerWidth);
 			var ${devMap["deviceid"]}Txt="${devMap["devicename"]}";
-			raphael_tooltip(R,${devMap["deviceid"]},${devMap["deviceid"]}Txt,x${devMap["node"]}+50,y${devMap["node"]}-30-10);
+			raphael_tooltip(R,${devMap["deviceid"]},${devMap["deviceid"]}Txt,x${devMap["node"]}+20,y${devMap["node"]}-10);
 			<#assign oddcount=oddcount+1 />
 		</#if>
 		 <#if (sugcount%2==0)>
 			var ${devMap["deviceid"]}  = R.image("css/images/router_normal.png",x${devMap["node"]}+(${sugx}),y${devMap["node"]}+(${ncount}*${sugx}+routerClear),routerWidth,routerWidth);
 			var ${devMap["deviceid"]}Txt="${devMap["devicename"]}";
-			raphael_tooltip(R,${devMap["deviceid"]},${devMap["deviceid"]}Txt,x${devMap["node"]}+50,y${devMap["node"]}-30-10);
+			raphael_tooltip(R,${devMap["deviceid"]},${devMap["deviceid"]}Txt,x${devMap["node"]}+20,y${devMap["node"]}-10);
 			<#assign ncount=ncount+1 />
 		</#if>
 		
