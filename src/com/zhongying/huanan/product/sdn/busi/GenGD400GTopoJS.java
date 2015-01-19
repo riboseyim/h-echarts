@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import com.zhongying.huanan.product.sdn.GenCodeUtil;
+import com.zhongying.huanan.product.sdn.util.GenCodeUtil;
 
 import junit.framework.TestCase;
 import freemarker.template.Configuration;

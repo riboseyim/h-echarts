@@ -1,4 +1,4 @@
-package com.zhongying.huanan.product.sdn;
+package com.zhongying.huanan.product.sdn.util;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;

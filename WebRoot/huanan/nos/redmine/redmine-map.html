@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="GBK">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="ECharts">
+<meta name="author" content="yanrui">
+<title>Redmine重点业务视图</title>
+<link href="../redmine/asset/css/bootstrap.css" rel="stylesheet">
+<link href="../redmine/asset/css/echartsHome.css" rel="stylesheet">
+
+<script src="../redmine/asset/jquery.min.js"></script>
+<script src="../redmine/asset/echarts.js"></script>
+
+
+</head>
+<body>
+	<!-- Fixed navbar -->
+	<div class="navbar navbar-default navbar-fixed-top" role="navigation"
+		id="head">
+		<h1 align="center"></h1>
+	</div>
+	<div class="container-fluid">
+		<div class="row-fluid example">
+			<div id="sidebar-code" class="col-md-2">
+				<div class="well sidebar-nav">
+					<div class="nav-header">
+						<a href="#" onclick="autoResize()"
+							class="glyphicon glyphicon-resize-full" id="icon-resize"> </a> <span>更多精彩，敬请期待......</span><br>
+						<br>
+						<br> <br>
+						<br>
+						<br>
+
+					</div>
+				</div>
+				<!--/.well -->
+			</div>
+			<!--/span-->
+			<div id="graphic" class="col-md-7">
+				<div id="myChinaMap" class="main" style="height: 530px;"></div>
+				<div>
+					<button type="button" class="btn btn-sm btn-success"
+						onclick="refresh(true)">刷 新</button>
+					<span class="text-primary">切换主题</span> <select id="theme-select"></select>
+					<span id='wrong-message' style="color: red"></span>
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!--/.fluid-container-->
+
+	<div class="container-fluid">
+		<div class="row-fluid example">
+			<div id="sidebar-code" class="col-md-2">
+				<div class="well sidebar-nav">
+					<div class="nav-header">
+						<a href="#" onclick="autoResize()"
+							class="glyphicon glyphicon-resize-full" id="icon-resize"> </a> <span>更多精彩，敬请期待......</span><br>
+						<br>
+						<br> <br>
+						<br>
+						<br>
+
+					</div>
+				</div>
+				<!--/.well -->
+			</div>
+			<!--/span-->
+			<div id="graphic" class="col-md-7">
+				<div id="track-bar-div" class="main" style="height: 530px;"></div>
+				<div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!--/.fluid-container-->
+	
+	<div class="container-fluid">
+		<div class="row-fluid example">
+			<div id="sidebar-code" class="col-md-2">
+				<div class="well sidebar-nav">
+					<div class="nav-header">
+						<a href="#" onclick="autoResize()"
+							class="glyphicon glyphicon-resize-full" id="icon-resize"> </a> <span>更多精彩，敬请期待......</span><br>
+						<br>
+						<br> <br>
+						<br>
+						<br>
+
+					</div>
+				</div>
+				<!--/.well -->
+			</div>
+			<!--/span-->
+			<div id="graphic" class="col-md-7">
+				<div id="history-line-div" class="main" style="height: 530px;"></div>
+				<div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!--/.fluid-container-->
+	
+	<div class="container-fluid">
+		<div class="row-fluid example">
+			<div id="sidebar-code" class="col-md-2">
+				<div class="well sidebar-nav">
+					<div class="nav-header">
+						<a href="#" onclick="autoResize()"
+							class="glyphicon glyphicon-resize-full" id="icon-resize"> </a> <span>更多精彩，敬请期待......</span><br>
+						<br>
+						<br> <br>
+						<br>
+						<br>
+
+					</div>
+				</div>
+				<!--/.well -->
+			</div>
+			<!--/span-->
+			<div id="graphic" class="col-md-7">
+				<div id="project-bar-div" class="main" style="height: 530px;"></div>
+				<div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!--/.fluid-container-->
+
+	<footer id="footer"></footer>
+
+	<script src="../redmine/asset/js/bootstrap.min.js"></script>
+
+	<!-- 必须置于下面 -->
+	<script src="redmine-map-main.js"></script>
+	<script src="redmine-map-option.js"></script>
+</body>
+</html>
