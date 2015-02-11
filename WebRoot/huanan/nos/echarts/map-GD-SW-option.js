@@ -8,8 +8,8 @@ function optionGDSW(){
 	}
 	var option = {
 		    title : {
-		        text : '交换机纳入集中管理进度表 ',
-		        subtext: 'Data From 中盈IP综合网管',
+		        text : '交换机纳入集中管理进度表(2015-01-21) ',
+		        subtext: '中盈IP综合网管',
 		        sublink:""
 		    },
 		    tooltip : {
@@ -46,7 +46,7 @@ function optionGDSW(){
 		                emphasis:{label:{show:true}}
 		            },
 		            data:[
-			                {name: '广州', value: 17},
+			                {name: '广州', value: 85},
 			                {name: '深圳', value: 95},
 			                {name: '东莞', value: 0},
 			                {name: '佛山', value: 95},
