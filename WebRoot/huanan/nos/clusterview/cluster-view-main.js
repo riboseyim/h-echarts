@@ -31,7 +31,7 @@ var myProjectBarChart;
 
 
 //加载中国地图
-function loadChinaMap(){
+function loadChinaMap(){ 
 	var myChinaMap = document.getElementById('myChinaMap');
 	 if (myChinaMapChart && myChinaMapChart.dispose) {
 	    	myChinaMapChart.dispose();
