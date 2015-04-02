@@ -5,11 +5,16 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.zhongying.huanan.product.adsl.echarts.util.DBConn;
 import com.zhongying.huanan.product.adsl.echarts.util.EchartsConfig;
+import com.zhongying.huanan.product.adsl.echarts.util.ToolUtil;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -23,14 +28,27 @@ public class GenAdslServBarJS  {
 	
 	public static void UpdateAdslServEchartsBar(){
 		try {
+			Connection con = null;
+			PreparedStatement psd = null;
+			ResultSet rs = null;
+		
+				DBConn db = new DBConn();
+				con = db.getDirectConn();
+				
+			System.err.println("-----1-----"+ToolUtil.getAccurateTime());
 			String TEMPLATEDIR = EchartsConfig.AdslEchartsAppDir + File.separator+"ftl";
 
 			String TEMPLATENAME = "drawAdslServBarOption.ftl";
 			String outpath = EchartsConfig.AdslEchartsAppDir +File.separator+ "AdslServ-bar-option.js";
-
-			Map<String, Object> paramMap = loadData();
+			
+			System.err.println("-----2-----"+ToolUtil.getAccurateTime());
+			Map<String, Object> paramMap = loadData(con);
+			
+			System.err.println("-----3-----"+ToolUtil.getAccurateTime());
+			
 			execTemplate(paramMap, TEMPLATEDIR, TEMPLATENAME, outpath);
 
+			System.err.println("-----4-----"+ToolUtil.getAccurateTime());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -60,7 +78,7 @@ public class GenAdslServBarJS  {
 	}
 
 	// 加载数据
-	public static Map<String, Object> loadData() throws IOException {
+	public static Map<String, Object> loadData(Connection con) throws Exception {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 
 		String days = "";
@@ -69,12 +87,18 @@ public class GenAdslServBarJS  {
 		String activenums = "";
 		String failednums = "";
 		GenAdslServService service = new GenAdslServService();
-
-		List daynumList = service.queryLast30Daynum();
-		List<HashMap> successList = service.queryLast30AdslSuccessResult();
-		List<HashMap> failedList = service.queryLast30AdslFailedResult();
-
-		days = service.queryLast30DaynumForChart();
+		
+		
+		List daynumList = service.queryLast30Daynum(con);
+		
+		List<HashMap> successList = service.queryLast30AdslSuccessResult(con);
+		
+		List<HashMap> failedList = service.queryLast30AdslFailedResult(con);
+		
+		days = service.queryLast30DaynumForChart(con);
+		
+	
+		DBConn.releaseConnection(con);///释放
 
 		
 		for (int i = 0; i < daynumList.size(); i++) {
@@ -85,7 +109,6 @@ public class GenAdslServBarJS  {
 			HashMap obj=GetOneDayObj(daynum,successList);
 			HashMap failedObj=GetOneDayFailedObj(daynum,failedList);
 			
-		
 			addnums+=convertMapObj(obj.get("addnum"));
 			deactivenums+=convertMapObj(obj.get("deactivenum"));
 			activenums+=convertMapObj(obj.get("activenum"));
@@ -105,6 +128,8 @@ public class GenAdslServBarJS  {
 		paramMap.put("deactivenums", deactivenums);
 		paramMap.put("activenums", activenums);
 		paramMap.put("failednums", failednums);
+		
+		
 		return paramMap;
 	}
 	
