@@ -9,14 +9,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import com.zhongying.huanan.product.sdn.util.GenCodeUtil;
 
-import junit.framework.TestCase;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
-public class GenGD400GTopoJS extends TestCase {
+public class GenGD400GTopoJS  {
 	private static String APPDIR = "E:\\project\\huanan-echarts\\WebRoot\\huanan\\nos\\sdn";
 	
 	public static void main(String[] args) {
