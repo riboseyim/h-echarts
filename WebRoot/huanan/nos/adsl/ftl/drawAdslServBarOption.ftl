@@ -4,7 +4,7 @@ create:2015-04-01
 -->
 
 
-function optionTrackBar(){
+function optionTrackBar${lastdays}(){
 	
 	var option = {
 			title:{
@@ -22,6 +22,14 @@ function optionTrackBar(){
 		            restore : {show: true},
 		            saveAsImage : {show: true}
 		        }
+		    },
+		    grid:{
+		    	x:30,
+		    	y:45,
+		    	x2:10,
+		    	y2:5,
+		    	width:650,
+		    	height:200
 		    },
 		    calculable : true,
 		    legend: {

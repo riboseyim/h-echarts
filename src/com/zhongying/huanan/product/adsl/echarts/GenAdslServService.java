@@ -10,18 +10,18 @@ import com.zhongying.huanan.product.adsl.echarts.util.DBConn;
 
 public class GenAdslServService {
 
-	public List queryLast30Daynum(Connection conn) {
+	public List queryExistRecordDays(int days,Connection conn) {
 		String sql = "select distinct to_char(createtime,'yyyyMMDD') daynum from worksheet ";
-		sql += " where servtypeid='IPSL' and floor(to_number(sysdate-createtime)) <15";
+		sql += " where servtypeid='IPSL' and floor(to_number(sysdate-createtime)) <"+days;
 		sql += " order by daynum";
 
 		return queryDayList(sql,conn);
 	}
 
-	public String queryLast30DaynumForChart(Connection conn) {
+	public String queryDaysForChart(int days,Connection conn) {
 		String daynums="";
 		String sql = "select distinct to_char(createtime,'MMDD') daynum from worksheet ";
-		sql += " where servtypeid='IPSL' and floor(to_number(sysdate-createtime)) <15";
+		sql += " where servtypeid='IPSL' and floor(to_number(sysdate-createtime)) <"+days;
 		sql += " order by daynum";
 
 		List list= queryDayList(sql,conn);
@@ -39,11 +39,11 @@ public class GenAdslServService {
 		return daynums;
 	}
 
-	public List<HashMap> queryLast30AdslSuccessResult(Connection con) {
+	public List<HashMap> queryAdslSuccessResult(int days,Connection con) {
 		String sql = " select to_char(createtime,'RRRRMMDD') daynum,opertype,status,";
 		sql += " count(distinct wsnbr) as num";
 		sql += " from worksheet w where w.servtypeid='IPSL'";
-		sql += " and floor(to_number(sysdate-createtime)) <15";
+		sql += " and floor(to_number(sysdate-createtime)) <"+days;
 		sql += " and status='C' ";
 		sql += " group by  to_char(createtime,'RRRRMMDD'), opertype,status";
 		sql += " order by daynum,opertype";
@@ -51,11 +51,11 @@ public class GenAdslServService {
 		return queryAdslDeployResult(sql,con);
 	}
 
-	public List<HashMap> queryLast30AdslFailedResult(Connection con) {
+	public List<HashMap> queryAdslFailedResult(int days,Connection con) {
 		String sql = " select to_char(createtime,'RRRRMMDD') daynum,";
 		sql += " count(distinct wsnbr) as num";
 		sql += " from worksheet w where w.servtypeid='IPSL'";
-		sql += " and floor(to_number(sysdate-createtime)) <15";
+		sql += " and floor(to_number(sysdate-createtime)) <"+days;
 		sql += " and status='F' ";
 		sql += " group by  to_char(createtime,'RRRRMMDD')";
 		sql += " order by daynum";

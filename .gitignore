@@ -10,6 +10,9 @@
 *.xls
 *.csv
 
+/data
+
+
 /src/com/ctsi/
 
 
