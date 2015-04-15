@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=GB2312" pageEncoding="GB2312" %>
 <%@ page import="java.util.*,java.lang.reflect.*,javax.servlet.http.*" %>
-<%@ page import="com.zhongying.huanan.product.adsl.echarts.GenAdslServChartsBean" %>
+<%@ page import="com.zhongying.huanan.product.redmine.echarts.GenAdslServChartsBean" %>
 <%
   String methodName = request.getParameter("methodName");
   try{
