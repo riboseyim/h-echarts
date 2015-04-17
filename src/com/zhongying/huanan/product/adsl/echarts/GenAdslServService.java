@@ -11,7 +11,7 @@ import com.zhongying.huanan.product.adsl.echarts.util.DBConn;
 public class GenAdslServService {
 
 	public List queryExistRecordDays(int days,Connection conn) {
-		String sql = "select distinct to_char(createtime,'yyyyMMDD') daynum from worksheet ";
+		String sql = "select distinct to_char(createtime,'MMDD') daynum from worksheet ";
 		sql += " where servtypeid='IPSL' and floor(to_number(sysdate-createtime)) <"+days;
 		sql += " order by daynum";
 
@@ -21,7 +21,8 @@ public class GenAdslServService {
 	public String queryDaysForChart(int days,Connection conn) {
 		String daynums="";
 		String sql = "select distinct to_char(createtime,'MMDD') daynum from worksheet ";
-		sql += " where servtypeid='IPSL' and floor(to_number(sysdate-createtime)) <"+days;
+		sql +=" where servtypeid='IPSL' ";
+		sql +=" and floor(to_number(sysdate-createtime)) <"+days;
 		sql += " order by daynum";
 
 		List list= queryDayList(sql,conn);
@@ -38,29 +39,73 @@ public class GenAdslServService {
 		
 		return daynums;
 	}
+	
+	public HashMap queryAdslTotalResult(int days,Connection con) {
+		String sql = " select to_char(createtime,'MMDD') daynum,status,";
+		sql += " count(distinct wsnbr) as num";
+		sql += " from worksheet w where w.servtypeid='IPSL'";
+		sql += " and floor(to_number(sysdate-createtime)) <"+days;
+		//sql += " and status='"+status+"' ";
+		sql += " group by  to_char(createtime,'MMDD'),status";
+		sql += " order by daynum";
+
+		return queryAdslTotalResult(sql,con);
+	}
 
 	public List<HashMap> queryAdslSuccessResult(int days,Connection con) {
-		String sql = " select to_char(createtime,'RRRRMMDD') daynum,opertype,status,";
+		String sql = " select to_char(createtime,'MMDD') daynum,opertype,status,";
 		sql += " count(distinct wsnbr) as num";
 		sql += " from worksheet w where w.servtypeid='IPSL'";
 		sql += " and floor(to_number(sysdate-createtime)) <"+days;
 		sql += " and status='C' ";
-		sql += " group by  to_char(createtime,'RRRRMMDD'), opertype,status";
+		sql += " group by  to_char(createtime,'MMDD'), opertype,status";
 		sql += " order by daynum,opertype";
 
 		return queryAdslDeployResult(sql,con);
 	}
 
 	public List<HashMap> queryAdslFailedResult(int days,Connection con) {
-		String sql = " select to_char(createtime,'RRRRMMDD') daynum,";
+		String sql = " select to_char(createtime,'MMDD') daynum,";
 		sql += " count(distinct wsnbr) as num";
 		sql += " from worksheet w where w.servtypeid='IPSL'";
 		sql += " and floor(to_number(sysdate-createtime)) <"+days;
 		sql += " and status='F' ";
-		sql += " group by  to_char(createtime,'RRRRMMDD')";
+		sql += " group by  to_char(createtime,'MMDD')";
 		sql += " order by daynum";
 
 		return queryAdslFailedResult(sql,con);
+	}
+	
+	public HashMap queryAdslTotalResult(String sql,Connection con) {
+		
+		System.out.println("sql:\n"+sql);
+
+		HashMap map = new HashMap();
+
+		PreparedStatement psd = null;
+		ResultSet rs = null;
+		try {
+
+			psd = con.prepareStatement(sql);
+			rs = psd.executeQuery();
+
+			while (rs.next()) {
+				String daynum = rs.getString("daynum");
+				String status = rs.getString("status");
+				String num = rs.getString("num");
+
+				map.put(daynum+status,num);
+				
+
+			}
+			rs.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBConn.cleanPre(psd);
+		}
+
+		return map;
 	}
 
 	public List<HashMap> queryAdslDeployResult(String sql,Connection con) {

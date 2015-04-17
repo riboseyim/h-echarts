@@ -16,12 +16,14 @@ function refresh(isBtnRefresh){
     }
     needRefresh = false;
     
-    loadTrackBar(7);
-    loadTrackBar(15);   
+    loadTrackBar('10');
+    loadTrackBar('30');   
+    loadTrackBar('total30');   
 }
 
-var myTrackBarChart7;
-var myTrackBarChart15;
+var myTrackBarChart10;
+var myTrackBarChart30;
+var myTrackBarCharttotal30;
 
 function loadTrackBar(lastdays){
 	var div="trackBarDiv"+lastdays;
@@ -30,14 +32,21 @@ function loadTrackBar(lastdays){
 	 if (char && char.dispose) {
 		 char.dispose();
 	 }
+	// alert(div);
 	 char = echarts.init(div, curTheme);  
 	 
-	 if(lastdays=="7"){
-		 char.setOption(optionTrackBar7()); 
+	 if(lastdays=="10"){
+		 char.setOption(optionTrackBar10()); 
 	 }
 	 
-	 if(lastdays=="15"){
-		 char.setOption(optionTrackBar15()); 
+	 if(lastdays=="30"){
+		 char.setOption(optionTrackBar30()); 
+	 }
+	 
+	 if(lastdays=="total30"){
+		 var option=optionTrackBarTotal30();
+		// alert(char+"----"+option);
+		 char.setOption(option); 
 	 }
 	
 }

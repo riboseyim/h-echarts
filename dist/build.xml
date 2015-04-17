@@ -4,7 +4,7 @@
 	<!-- dist -->
 
 	<property name="app.name" value="HEcharts" />
-	<property name="app.version" value="20150401-snapshots" />
+	<property name="app.version" value="201504-snapshots" />
 	<property name="root.dir" location="E:/project/huanan-echarts" />
 	<property name="app.dir" location="${root.dir}/WebRoot" />
 

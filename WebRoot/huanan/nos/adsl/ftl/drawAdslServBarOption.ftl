@@ -24,12 +24,10 @@ function optionTrackBar${lastdays}(){
 		        }
 		    },
 		    grid:{
-		    	x:30,
+		    	x:45,
 		    	y:45,
-		    	x2:10,
-		    	y2:5,
-		    	width:650,
-		    	height:200
+		    	x2:30,
+		    	y2:40
 		    },
 		    calculable : true,
 		    legend: {
