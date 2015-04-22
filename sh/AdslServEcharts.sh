@@ -72,7 +72,7 @@ export CLASSPATH
 echo now dir:`pwd`
 
 #cd lib
-LANG=zh_CN.gb2312
+LANG=zh_CN.GBK
 echo '-------------1'
 export LANG
 

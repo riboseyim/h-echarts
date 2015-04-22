@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +23,9 @@ import freemarker.template.TemplateException;
 
 public class GenAdslServBarJS {
 
+	private static String EChartsEncode = "GBK";
+	private static String EChartsEncodeT = "GBK";
+
 	public static void main(String[] args) {
 		UpdateAdslServEchartsBar();
 	}
@@ -31,7 +35,7 @@ public class GenAdslServBarJS {
 		Connection con = null;
 		try {
 			System.err.println("-----0-----" + ToolUtil.getAccurateTime());
-			
+
 			DBConn db = new DBConn();
 			con = db.getDirectConn();
 
@@ -42,35 +46,32 @@ public class GenAdslServBarJS {
 			String outpath = EchartsConfig.AdslEchartsAppDir;
 
 			System.err.println("-----2-----" + ToolUtil.getAccurateTime());
-			int lastdays=10;
-			String filepath=outpath+File.separator+"AdslServ-bar-option-10.js";
-			Map<String, Object> paramMap = loadData(lastdays,con);
+			int lastdays = 10;
+			String filepath = outpath + File.separator + "AdslServ-bar-option-10.js";
+			Map<String, Object> paramMap = loadData(lastdays, con);
 
 			System.err.println("-----3-----" + ToolUtil.getAccurateTime());
 
 			execTemplate(paramMap, TEMPLATEDIR, TEMPLATENAME, filepath);
 
 			System.err.println("-----4-----" + ToolUtil.getAccurateTime());
-			
-			
-			lastdays=30;
-			 filepath=outpath+File.separator+"AdslServ-bar-option-30.js";
-			paramMap = loadData(lastdays,con);
+
+			lastdays = 30;
+			filepath = outpath + File.separator + "AdslServ-bar-option-30.js";
+			paramMap = loadData(lastdays, con);
 			execTemplate(paramMap, TEMPLATEDIR, TEMPLATENAME, filepath);
-			
-			
+
 			System.err.println("-----5-----" + ToolUtil.getAccurateTime());
-			
-			
-			lastdays=30;
-			filepath=outpath+File.separator+"AdslServ-bar-item-option-30.js";
+
+			lastdays = 30;
+			filepath = outpath + File.separator + "AdslServ-bar-item-option-30.js";
 			TEMPLATENAME = "trackBarTotal30Option.ftl";
-			paramMap = loadIndexUserTotalBarItem(lastdays,con);
+			paramMap = loadIndexUserTotalBarItem(lastdays, con);
 			execTemplate(paramMap, TEMPLATEDIR, TEMPLATENAME, filepath);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally{
+		} finally {
 			DBConn.releaseConnection(con);// /释放
 		}
 	}
@@ -97,7 +98,7 @@ public class GenAdslServBarJS {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static Map<String, Object> loadIndexUserTotalBarItem(int lastdays, Connection con) throws Exception {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 
@@ -114,27 +115,25 @@ public class GenAdslServBarJS {
 		index_user_bar_item_yAxis += "formatter : '{value} 条'";
 		index_user_bar_item_yAxis += "}";
 		index_user_bar_item_yAxis += "}";
-		
-	
 
 		System.err.println("loadIndexUserTotalBarItem  query data begin ....");
-		
+
 		GenAdslServService service = new GenAdslServService();
-		
-		LinkedList traceList=new LinkedList();
+
+		LinkedList traceList = new LinkedList();
 		traceList.add("C");
 		traceList.add("F");
-		
-		LinkedList traceNameList=new LinkedList();
+
+		LinkedList traceNameList = new LinkedList();
 		traceNameList.add("成功");
 		traceNameList.add("回退");
-		index_user_bar_item_keys=convertListToString(traceNameList, "'");
+		index_user_bar_item_keys = convertListToString(traceNameList, "'");
 
 		List userList = service.queryExistRecordDays(lastdays, con);
 		index_user_bar_item_usernames = convertListToString(userList, "'");// x:daynums
 
-		HashMap userhoursMap = service.queryAdslTotalResult(lastdays,con);
-		
+		HashMap userhoursMap = service.queryAdslTotalResult(lastdays, con);
+
 		System.err.println("loadIndexUserTotalBarItem  query data finished ....");
 
 		int rgba1 = 121;
@@ -155,9 +154,9 @@ public class GenAdslServBarJS {
 			index_user_bar_item_yAxis += "formatter : '{value} 个'";
 			index_user_bar_item_yAxis += "}";
 			index_user_bar_item_yAxis += "}";
-			
+
 			String thisNodeData = "{ \n";
-			
+
 			thisNodeData += " name:'" + convertName(tracename) + "',";
 			thisNodeData += " type:'bar',";
 			thisNodeData += "   tooltip : {trigger: 'item'},";
@@ -192,11 +191,10 @@ public class GenAdslServBarJS {
 				if (hours == null || "".equals(hours)) {
 					hours = "0";
 				}
-				
-				//System.out.println(username+" "+tracename+":"+hours);
+
+				// System.out.println(username+" "+tracename+":"+hours);
 
 				thisNodeData += hours;
-
 
 				if (i < userList.size() - 1) {
 					thisNodeData += ",";
@@ -220,43 +218,44 @@ public class GenAdslServBarJS {
 				thisNodeData += ",";
 
 				lineData += ",";
-			}else{
-				lineData=","+lineData;
+			} else {
+				lineData = "," + lineData;
 			}
 			index_user_bar_item_data += thisNodeData;
-			//index_user_bar_item_data +=lineData;
+			// index_user_bar_item_data +=lineData;
 
 		}
+
+		System.err.println("title:" + index_user_bar_item_name);
+		System.err.println("index_user_bar_item_keys:" + index_user_bar_item_keys);
+		System.err.println("index_user_total_bar_item_usernames:" + index_user_bar_item_usernames);
+		System.err.println("index_user_total_bar_item_data:" + index_user_bar_item_data);
+		System.err.println("index_user_bar_item_yAxis:" + index_user_bar_item_yAxis);
 
 		paramMap.put("index_user_total_bar_item_name", index_user_bar_item_name);
 		paramMap.put("index_user_total_bar_item_keys", index_user_bar_item_keys);
 		paramMap.put("index_user_total_bar_item_usernames", index_user_bar_item_usernames);
 
-		
 		paramMap.put("index_user_bar_item_yAxis", index_user_bar_item_yAxis);
 		paramMap.put("index_user_total_bar_item_data", index_user_bar_item_data);
 
 		return paramMap;
 	}
-	
-	
-	public static String convertName(String status){
-		
-		if(status!=null){
-			
+
+	public static String convertName(String status) {
+		if (status != null) {
 			if (status.equals("C")) {
-				return "成功";
+				status = "成功";
 			}
 			if (status.equals("F")) {
-				return "回退";
+				status = "回退";
 			}
 		}
-		
 		return status;
 	}
 
 	// 加载数据
-	public static Map<String, Object> loadData(int lastdays,Connection con) throws Exception {
+	public static Map<String, Object> loadData(int lastdays, Connection con) throws Exception {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 
 		String days = "";
@@ -266,17 +265,16 @@ public class GenAdslServBarJS {
 		String failednums = "";
 		GenAdslServService service = new GenAdslServService();
 
-		List daynumList = service.queryExistRecordDays(lastdays,con);
+		List daynumList = service.queryExistRecordDays(lastdays, con);
 
-		List<HashMap> successList = service.queryAdslSuccessResult(lastdays,con);
+		List<HashMap> successList = service.queryAdslSuccessResult(lastdays, con);
 
-		List<HashMap> failedList = service.queryAdslFailedResult(lastdays,con);
+		List<HashMap> failedList = service.queryAdslFailedResult(lastdays, con);
 
-		days = service.queryDaysForChart(lastdays,con);
+		days = service.queryDaysForChart(lastdays, con);
 
 		System.err.println("-----5-----" + ToolUtil.getAccurateTime());
-		
-		
+
 		for (int i = 0; i < daynumList.size(); i++) {
 			String daynum = (String) daynumList.get(i);
 
@@ -297,9 +295,9 @@ public class GenAdslServBarJS {
 				failednums += ",";
 			}
 		}
-		
+
 		paramMap.put("lastdays", lastdays);
-		
+
 		paramMap.put("days", days);
 		paramMap.put("addnums", addnums);
 		paramMap.put("deactivenums", deactivenums);
@@ -395,7 +393,7 @@ public class GenAdslServBarJS {
 		}
 		return 0;
 	}
-	
+
 	public static String convertListToString(List list, String fixstr) {
 		String str = "";
 		for (int i = 0; i < list.size(); i++) {
@@ -406,7 +404,8 @@ public class GenAdslServBarJS {
 
 		}
 
-		//System.err.println("convertListToString:" + str);
+		// System.err.println("convertListToString:" + str);
+
 		return str;
 	}
 
